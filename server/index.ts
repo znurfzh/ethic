@@ -65,10 +65,11 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
+  // Use PORT from environment variable if available, otherwise default to 5000
+  // For Render or other hosting platforms, we'll use whatever port they specify
+  // For Replit, if there's a port conflict, we can try port 5001 as a fallback
+  const defaultPort = process.env.REPL_ID ? 5001 : 5000;
+  const port = process.env.PORT ? parseInt(process.env.PORT) : defaultPort;
   server.listen({
     port,
     host: "0.0.0.0",
