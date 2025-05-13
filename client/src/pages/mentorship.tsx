@@ -395,16 +395,16 @@ export default function MentorshipPage() {
           )}
         
           <Tabs defaultValue={mentorshipRequestSuccess ? "your-mentors" : "find-mentors"} className="space-y-6">
-            <TabsList className="mb-6">
-              <TabsTrigger value="find-mentors">
+            <TabsList className="grid w-full grid-cols-3 h-auto p-1 mb-6">
+              <TabsTrigger value="find-mentors" className="px-4 py-2">
                 <Search className="h-4 w-4 mr-2" />
                 Find Mentors
               </TabsTrigger>
-              <TabsTrigger value="your-mentors">
+              <TabsTrigger value="your-mentors" className="px-4 py-2">
                 <GraduationCap className="h-4 w-4 mr-2" />
                 Your Mentors
               </TabsTrigger>
-              <TabsTrigger value="your-mentees">
+              <TabsTrigger value="your-mentees" className="px-4 py-2">
                 <UserPlus className="h-4 w-4 mr-2" />
                 Your Mentees
               </TabsTrigger>

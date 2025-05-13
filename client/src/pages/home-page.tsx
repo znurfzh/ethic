@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 
 import PostCard from "@/components/post-card";
-import MemberConnect from "@/components/memberConnect";
+import MemberConnect from "@/components/member-connect";
 import TrendingTopics from "@/components/trending-topics";
 import UpcomingEvents from "@/components/upcoming-events";
 
@@ -280,24 +280,24 @@ export default function HomePage() {
       
       {/* Recent Activity & Personalized Recommendations */}
       <Tabs defaultValue={getDefaultTab()} className="mb-6">
-        <TabsList className="mb-4">
-          <TabsTrigger value="recent">
+        <TabsList className="grid w-full grid-cols-5 h-auto p-1 mb-4">
+          <TabsTrigger value="recent" className="px-4 py-2">
             <Clock className="h-4 w-4 mr-2" />
             Recent Activity
           </TabsTrigger>
-          <TabsTrigger value="recommended">
+          <TabsTrigger value="recommended" className="px-4 py-2">
             <Sparkles className="h-4 w-4 mr-2" />
             Recommended For You
           </TabsTrigger>
-          <TabsTrigger value="notifications">
+          <TabsTrigger value="notifications" className="px-4 py-2">
             <Bell className="h-4 w-4 mr-2" />
             Notifications
           </TabsTrigger>
-          <TabsTrigger value="analytics">
+          <TabsTrigger value="analytics" className="px-4 py-2">
             <BarChart2 className="h-4 w-4 mr-2" />
             Analytics
           </TabsTrigger>
-          <TabsTrigger value="bookmarks">
+          <TabsTrigger value="bookmarks" className="px-4 py-2">
             <Bookmark className="h-4 w-4 mr-2" />
             Bookmarks
           </TabsTrigger>
@@ -767,20 +767,20 @@ export default function HomePage() {
           
           {/* Main Analytics Dashboard */}
           <Tabs defaultValue="activity" className="mb-6">
-            <TabsList className="grid grid-cols-4 mb-4">
-              <TabsTrigger value="activity">
+            <TabsList className="grid w-full grid-cols-4 h-auto p-1 mb-4">
+              <TabsTrigger value="activity" className="px-4 py-2">
                 <Clock className="h-4 w-4 mr-2" />
                 Activity
               </TabsTrigger>
-              <TabsTrigger value="learning">
+              <TabsTrigger value="learning" className="px-4 py-2">
                 <GraduationCap className="h-4 w-4 mr-2" />
                 Learning
               </TabsTrigger>
-              <TabsTrigger value="engagement">
+              <TabsTrigger value="engagement" className="px-4 py-2">
                 <MessageSquare className="h-4 w-4 mr-2" />
                 Engagement
               </TabsTrigger>
-              <TabsTrigger value="goals">
+              <TabsTrigger value="goals" className="px-4 py-2">
                 <Award className="h-4 w-4 mr-2" />
                 Goals & Achievements
               </TabsTrigger>
@@ -1243,13 +1243,13 @@ export default function HomePage() {
           </div>
 
           <Tabs defaultValue="all" className="mb-6">
-            <TabsList className="mb-4">
-              <TabsTrigger value="all">All Bookmarks</TabsTrigger>
-              <TabsTrigger value="resources">Resources</TabsTrigger>
-              <TabsTrigger value="learningPaths">Learning Paths</TabsTrigger>
-              <TabsTrigger value="posts">Forum Posts</TabsTrigger>
-              <TabsTrigger value="events">Events</TabsTrigger>
-              <TabsTrigger value="jobs">Job Opportunities</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-6 h-auto p-1 mb-4">
+              <TabsTrigger value="all" className="px-4 py-2">All Bookmarks</TabsTrigger>
+              <TabsTrigger value="resources" className="px-4 py-2">Resources</TabsTrigger>
+              <TabsTrigger value="learningPaths" className="px-4 py-2">Learning Paths</TabsTrigger>
+              <TabsTrigger value="posts" className="px-4 py-2">Forum Posts</TabsTrigger>
+              <TabsTrigger value="events" className="px-4 py-2">Events</TabsTrigger>
+              <TabsTrigger value="jobs" className="px-4 py-2">Job Opportunities</TabsTrigger>
             </TabsList>
             
             {/* All Bookmarks Tab */}

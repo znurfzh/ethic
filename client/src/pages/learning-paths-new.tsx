@@ -160,10 +160,10 @@ export default function LearningPathsPage() {
           
           {/* Learning Paths Tabs */}
           <Tabs defaultValue="paths" className="mb-8">
-            <TabsList className="mb-4">
-              <TabsTrigger value="paths">All Paths</TabsTrigger>
-              <TabsTrigger value="in-progress">In Progress</TabsTrigger>
-              <TabsTrigger value="completed">Completed</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 h-auto p-1 mb-4">
+              <TabsTrigger value="paths" className="px-4 py-2">All Paths</TabsTrigger>
+              <TabsTrigger value="in-progress" className="px-4 py-2">In Progress</TabsTrigger>
+              <TabsTrigger value="completed" className="px-4 py-2">Completed</TabsTrigger>
             </TabsList>
             
             {/* Learning Paths Tab */}

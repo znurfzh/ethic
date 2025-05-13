@@ -167,16 +167,16 @@ export default function ResourceDetailPage() {
       
       {/* Resource content tabs */}
       <Tabs defaultValue="overview" className="bg-white border rounded-lg p-6">
-        <TabsList className="mb-6">
-          <TabsTrigger value="overview" onClick={() => setActiveTab("overview")}>
+        <TabsList className="grid w-full grid-cols-3 h-auto p-1 mb-6">
+          <TabsTrigger value="overview" onClick={() => setActiveTab("overview")} className="px-4 py-2">
             <FileText className="h-4 w-4 mr-2" />
             Overview
           </TabsTrigger>
-          <TabsTrigger value="reviews" onClick={() => setActiveTab("reviews")}>
+          <TabsTrigger value="reviews" onClick={() => setActiveTab("reviews")} className="px-4 py-2">
             <MessageCircle className="h-4 w-4 mr-2" />
             Discussion
           </TabsTrigger>
-          <TabsTrigger value="citations" onClick={() => setActiveTab("citations")}>
+          <TabsTrigger value="citations" onClick={() => setActiveTab("citations")} className="px-4 py-2">
             <Award className="h-4 w-4 mr-2" />
             Citations
           </TabsTrigger>

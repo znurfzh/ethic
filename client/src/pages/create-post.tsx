@@ -131,11 +131,11 @@ export default function CreatePost() {
               onValueChange={(value) => setActiveTab(value)}
               className="mb-6"
             >
-              <TabsList className="grid grid-cols-4 mb-4">
-                <TabsTrigger value="article">Article</TabsTrigger>
-                <TabsTrigger value="question">Question</TabsTrigger>
-                <TabsTrigger value="resource">Resource</TabsTrigger>
-                <TabsTrigger value="discussion">Discussion</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-4 h-auto p-1 mb-4">
+                <TabsTrigger value="article" className="px-4 py-2">Article</TabsTrigger>
+                <TabsTrigger value="question" className="px-4 py-2">Question</TabsTrigger>
+                <TabsTrigger value="resource" className="px-4 py-2">Resource</TabsTrigger>
+                <TabsTrigger value="discussion" className="px-4 py-2">Discussion</TabsTrigger>
               </TabsList>
 
               <TabsContent value="article">

@@ -217,12 +217,12 @@ export default function ChallengesPage() {
       </h1>
 
       <Tabs defaultValue="spotlight" className="w-full">
-          <TabsList className="mb-6 w-full justify-start">
-            <TabsTrigger value="spotlight">
+          <TabsList className="grid w-full grid-cols-2 h-auto p-1 mb-6">
+            <TabsTrigger value="spotlight" className="px-4 py-2">
               <Lightbulb className="h-4 w-4 mr-2" />
               Spotlight
             </TabsTrigger>
-            <TabsTrigger value="challenge">
+            <TabsTrigger value="challenge" className="px-4 py-2">
               <Trophy className="h-4 w-4 mr-2" />
               Challenge
             </TabsTrigger>

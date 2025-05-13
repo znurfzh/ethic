@@ -242,20 +242,20 @@ export default function CareerPage() {
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Career</h1>
         
       <Tabs defaultValue="trends" className="w-full">
-        <TabsList className="mb-6 w-full justify-start">
-          <TabsTrigger value="trends">
+        <TabsList className="grid w-full grid-cols-4 h-auto p-1 mb-6">
+          <TabsTrigger value="trends" className="px-4 py-2">
             <TrendingUp className="h-4 w-4 mr-2" />
             Trends
           </TabsTrigger>
-          <TabsTrigger value="toolkit">
+          <TabsTrigger value="toolkit" className="px-4 py-2">
             <Backpack className="h-4 w-4 mr-2" />
             Toolkit
           </TabsTrigger>
-          <TabsTrigger value="opportunities">
+          <TabsTrigger value="opportunities" className="px-4 py-2">
             <Briefcase className="h-4 w-4 mr-2" />
             Job Opportunities
           </TabsTrigger>
-          <TabsTrigger value="education">
+          <TabsTrigger value="education" className="px-4 py-2">
             <GraduationCap className="h-4 w-4 mr-2" />
             Continuing Education
           </TabsTrigger>

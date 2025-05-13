@@ -33,7 +33,7 @@ export default function AuthPage() {
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "mayapratama",
+      username: "faiwijaya",
       password: "edtechisawesome@2025"
     }
   });
@@ -41,10 +41,10 @@ export default function AuthPage() {
   const registerForm = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      username: "mayapratama",
+      username: "faiwijaya",
       password: "edtechisawesome@2025",
-      displayName: "Maya Pratama",
-      email: "maya.pratama@ethic.id",
+      displayName: "Fai Wijaya",
+      email: "fai.wijaya@ethic.id",
       userType: "student",
       organization: "",
       institution: "Universitas Negeri Jakarta",
@@ -70,6 +70,9 @@ export default function AuthPage() {
 
     registerMutation.mutate(userData, {
       onSuccess: () => {
+        // Set a flag to indicate this is a newly registered user
+        // This will be used to trigger the onboarding tutorial
+        sessionStorage.setItem("newlyRegistered", "true");
         navigate("/home");
       }
     });

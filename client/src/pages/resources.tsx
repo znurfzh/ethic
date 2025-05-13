@@ -287,12 +287,12 @@ export default function ResourcesPage() {
         
         {/* ThinkTank Navigation Tabs */}
         <Tabs defaultValue="repository" className="mb-6">
-          <TabsList className="mb-4">
-            <TabsTrigger value="repository">
+          <TabsList className="grid w-full grid-cols-2 h-auto p-1 mb-4">
+            <TabsTrigger value="repository" className="px-4 py-2">
               <FileText className="h-4 w-4 mr-2" />
               Repository
             </TabsTrigger>
-            <TabsTrigger value="learningpaths">
+            <TabsTrigger value="learningpaths" className="px-4 py-2">
               <BookOpen className="h-4 w-4 mr-2" />
               Learning Pathways
             </TabsTrigger>

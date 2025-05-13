@@ -117,10 +117,10 @@ export default function MentorProfile({ mentor, onRequestMentorship }: MentorPro
       {/* Right Column - Tabs */}
       <div className="lg:w-2/3">
         <Tabs defaultValue="about" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="about">About</TabsTrigger>
-            <TabsTrigger value="mentorship">Mentorship</TabsTrigger>
-            <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 h-auto p-1">
+            <TabsTrigger value="about" className="px-4 py-2">About</TabsTrigger>
+            <TabsTrigger value="mentorship" className="px-4 py-2">Mentorship</TabsTrigger>
+            <TabsTrigger value="testimonials" className="px-4 py-2">Testimonials</TabsTrigger>
           </TabsList>
           
           {/* About Tab */}

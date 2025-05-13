@@ -115,14 +115,18 @@ export default function OnboardingTutorial() {
   const currentStep = tutorialSteps[currentStepIndex];
 
   useEffect(() => {
-    // Check if user is new and hasn't completed tutorial
+    // Check if user is new, logged in, and hasn't completed tutorial
     const hasCompletedTutorial = localStorage.getItem("tutorialCompleted");
-
-    // Temporarily remove user check to ensure tutorial shows
-    if (!hasCompletedTutorial) {
+    const isNewlyRegistered = sessionStorage.getItem("newlyRegistered");
+    
+    // Only show the tutorial if the user is logged in, hasn't completed the tutorial,
+    // and is newly registered
+    if (user && !hasCompletedTutorial && isNewlyRegistered) {
       // Show welcome dialog after a short delay
       const timer = setTimeout(() => {
         setShowWelcomeDialog(true);
+        // Clear the newly registered flag after showing the tutorial
+        sessionStorage.removeItem("newlyRegistered");
       }, 1000);
 
       return () => clearTimeout(timer);
