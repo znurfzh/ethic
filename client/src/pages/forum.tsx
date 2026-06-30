@@ -1,5 +1,13 @@
 import { useState } from "react";
 import { Link } from "wouter";
+
+type ForumThread = {
+  id: number; title: string; content: string;
+  authorId: number; authorName: string; authorRole: string; authorAvatar: null;
+  topicId: string; tags: string[]; createdAt: string;
+  views: number; likes: number; comments: number;
+  isPinned: boolean; isHot: boolean; lastActivity: string;
+};
 import {
   Search,
   Filter,
@@ -55,7 +63,7 @@ export default function ForumPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [topicFilter, setTopicFilter] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
-  const [selectedThread, setSelectedThread] = useState(null);
+  const [selectedThread, setSelectedThread] = useState<ForumThread | null>(null);
   const [newPostOpen, setNewPostOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
@@ -64,6 +72,14 @@ export default function ForumPage() {
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [replyContent, setReplyContent] = useState("");
   const [replyToComment, setReplyToComment] = useState(null);
+
+  const topicColorMap: Record<string, string> = {
+    amber:  "bg-amber-100  text-amber-700  border-amber-200",
+    blue:   "bg-blue-100   text-blue-700   border-blue-200",
+    green:  "bg-green-100  text-green-700  border-green-200",
+    purple: "bg-purple-100 text-purple-700 border-purple-200",
+    red:    "bg-red-100    text-red-700    border-red-200",
+  };
 
   // Mock data for forum topics
   const forumTopics = [
@@ -718,7 +734,7 @@ export default function ForumPage() {
                   <div className="flex flex-wrap gap-2 mt-2">
                     <Badge
                       variant="outline"
-                      className={`bg-${forumTopics.find((t) => t.id === selectedThread.topicId)?.color}-100 text-${forumTopics.find((t) => t.id === selectedThread.topicId)?.color}-700 border-${forumTopics.find((t) => t.id === selectedThread.topicId)?.color}-200`}
+                      className={topicColorMap[forumTopics.find((t) => t.id === selectedThread.topicId)?.color ?? ""] ?? ""}
                     >
                       {forumTopics.find((t) => t.id === selectedThread.topicId)?.name}
                     </Badge>
@@ -1028,19 +1044,7 @@ export default function ForumPage() {
                                 </span>
                                 <Badge
                                   variant="outline"
-                                  className={`bg-${
-                                    forumTopics.find(
-                                      (t) => t.id === thread.topicId,
-                                    )?.color
-                                  }-100 text-${
-                                    forumTopics.find(
-                                      (t) => t.id === thread.topicId,
-                                    )?.color
-                                  }-700 border-${
-                                    forumTopics.find(
-                                      (t) => t.id === thread.topicId,
-                                    )?.color
-                                  }-200`}
+                                  className={topicColorMap[forumTopics.find((t) => t.id === thread.topicId)?.color ?? ""] ?? ""}
                                 >
                                   {
                                     forumTopics.find(

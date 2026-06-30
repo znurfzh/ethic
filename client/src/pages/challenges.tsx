@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import AppLayout from "@/components/app-layout";
+import { PageSkeleton } from "@/components/page-skeleton";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -209,6 +210,8 @@ export default function ChallengesPage() {
     if (filterStatus === "all") return true;
     return challenge.status === filterStatus;
   });
+
+  if (challengesLoading || spotlightsLoading) return <PageSkeleton variant="cards" count={4} />;
 
   return (
     <div>

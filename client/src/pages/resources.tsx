@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
+import { PageSkeleton } from "@/components/page-skeleton";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -244,6 +245,8 @@ export default function ResourcesPage() {
   });
 
   const uniqueTypes = Array.from(new Set(resources.map(r => r.type)));
+
+  if (isLoading) return <PageSkeleton variant="cards" count={6} />;
 
   return (
       <div className="w-full space-y-6">

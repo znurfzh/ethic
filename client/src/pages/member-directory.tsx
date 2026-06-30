@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@shared/schema";
+import { PageSkeleton } from "@/components/page-skeleton";
 import { useAuth } from "@/hooks/use-auth";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -153,6 +154,8 @@ export default function MemberDirectoryPage() {
 
     return matchesSearch && matchesRole;
   });
+
+  if (isLoading) return <PageSkeleton variant="members" count={6} />;
 
   return (
     <div className="w-full">

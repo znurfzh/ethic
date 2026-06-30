@@ -32,10 +32,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, 
+import {
+  AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from "recharts";
+import { PageSkeleton } from "@/components/page-skeleton";
 
 export default function HomePage() {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
@@ -237,6 +238,8 @@ export default function HomePage() {
     { id: 5, title: "Mentorship Program", icon: <Users className="w-4 h-4" />, url: "/mentorship" },
     { id: 6, title: "My Bookmarks", icon: <Bookmark className="w-4 h-4" />, url: "/bookmarks" }
   ];
+
+  if (isLoading) return <PageSkeleton variant="posts" count={4} columns="grid-cols-1" />;
 
   return (
     <div className="w-full space-y-6">

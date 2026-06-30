@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { PageSkeleton } from "@/components/page-skeleton";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -237,6 +238,8 @@ export default function CareerPage() {
   // Get unique job types for filtering
   const jobTypes = Array.from(new Set(jobs.map(job => job.type)));
   
+  if (jobsLoading || resourcesLoading) return <PageSkeleton variant="cards" count={4} />;
+
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Career</h1>
