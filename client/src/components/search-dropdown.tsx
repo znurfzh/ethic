@@ -6,6 +6,21 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { cn } from "@/lib/utils";
 
+const topicBgMap: Record<string, string> = {
+  blue: "bg-blue-100",
+  green: "bg-green-100",
+  purple: "bg-purple-100",
+  amber: "bg-amber-100",
+  red: "bg-red-100",
+};
+const topicTextMap: Record<string, string> = {
+  blue: "text-blue-600",
+  green: "text-green-600",
+  purple: "text-purple-600",
+  amber: "text-amber-600",
+  red: "text-red-600",
+};
+
 export default function SearchDropdown() {
   const { 
     results, 
@@ -146,8 +161,8 @@ export default function SearchDropdown() {
                             <div className={cn(
                               "flex items-center gap-2 px-2 py-1.5 rounded-md text-sm cursor-pointer hover:bg-gray-100"
                             )}>
-                              <div className={`flex-shrink-0 h-6 w-6 rounded-full bg-${topic.color}-100 flex items-center justify-center`}>
-                                <BookOpen className={`h-3 w-3 text-${topic.color}-600`} />
+                              <div className={`flex-shrink-0 h-6 w-6 rounded-full flex items-center justify-center ${topicBgMap[topic.color] ?? "bg-gray-100"}`}>
+                                <BookOpen className={`h-3 w-3 ${topicTextMap[topic.color] ?? "text-gray-600"}`} />
                               </div>
                               <div>
                                 <p className="font-medium">{topic.name}</p>

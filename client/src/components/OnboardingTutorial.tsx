@@ -69,9 +69,9 @@ export default function OnboardingTutorial() {
       id: 2,
       title: "Explore Educational Resources",
       description:
-        "Discover the latest educational technology resources, articles, and best practices in the ThinkTank section.",
+        "Discover the latest educational technology resources, articles, and best practices in the Resources section.",
       icon: <Book className="h-6 w-6 text-primary-600" />,
-      highlight: ".sidebar-thinktank",
+      highlight: "[href='/resources']",
       position: "right",
     },
     {
@@ -80,7 +80,7 @@ export default function OnboardingTutorial() {
       description:
         "Engage with other members, join discussions, and attend events in the Hub section.",
       icon: <Users className="h-6 w-6 text-primary-600" />,
-      highlight: ".sidebar-hub",
+      highlight: "[href='/hub']",
       position: "right",
     },
     {
@@ -89,7 +89,7 @@ export default function OnboardingTutorial() {
       description:
         "Connect with experienced professionals for guidance on your educational technology journey.",
       icon: <Award className="h-6 w-6 text-primary-600" />,
-      highlight: ".sidebar-career, .career-mentorship",
+      highlight: "[href='/mentorship']",
       position: "right",
     },
     {
@@ -98,7 +98,7 @@ export default function OnboardingTutorial() {
       description:
         "Showcase your skills by joining innovation challenges and contributing to educational solutions.",
       icon: <Lightbulb className="h-6 w-6 text-primary-600" />,
-      highlight: ".sidebar-innovation",
+      highlight: "[href='/challenges']",
       position: "right",
     },
     {

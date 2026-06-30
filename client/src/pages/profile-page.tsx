@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, Mail, Building, Briefcase, Calendar } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { queryClient } from "@/lib/queryClient";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -55,8 +55,8 @@ export default function ProfilePage() {
     }
   });
   
-  // Update form values when profile data loads
-  useState(() => {
+  // Populate form once profile data arrives
+  useEffect(() => {
     if (profileUser) {
       form.reset({
         displayName: profileUser.displayName,
@@ -66,7 +66,7 @@ export default function ProfilePage() {
         avatarUrl: profileUser.avatarUrl || "",
       });
     }
-  });
+  }, [profileUser]);
   
   const updateProfileMutation = useMutation({
     mutationFn: async (data: z.infer<typeof profileUpdateSchema>) => {
