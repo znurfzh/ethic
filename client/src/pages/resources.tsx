@@ -14,8 +14,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, Search, Download, Bookmark, Share2, ExternalLink, Clock, Tag, FileText, PlusCircle, 
-         ImageIcon, HelpCircle, Link2, Plus, X, User } from "lucide-react";
+import { BookOpen, Search, Download, Bookmark, Share2, ExternalLink, Clock, Tag, FileText, PlusCircle,
+         ImageIcon, HelpCircle, Link2, Plus, X, User, AlertCircle } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 // Sample resource data
@@ -203,7 +203,7 @@ export default function ResourcesPage() {
     }
   ];
 
-  const { data: resources = mockResources, isLoading } = useQuery({
+  const { data: resources = mockResources, isLoading, isError } = useQuery({
     queryKey: ["/api/resources"],
     // This is mock data, so we're not actually fetching
     queryFn: () => Promise.resolve(mockResources),
@@ -247,6 +247,15 @@ export default function ResourcesPage() {
   const uniqueTypes = Array.from(new Set(resources.map(r => r.type)));
 
   if (isLoading) return <PageSkeleton variant="cards" count={6} />;
+
+  if (isError) return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <AlertCircle className="h-10 w-10 text-red-400 mb-4" />
+      <h3 className="font-semibold text-gray-900 mb-1">Failed to load</h3>
+      <p className="text-sm text-gray-500 mb-4">Something went wrong. Please try again.</p>
+      <Button variant="outline" onClick={() => window.location.reload()}>Retry</Button>
+    </div>
+  );
 
   return (
       <div className="w-full space-y-6">

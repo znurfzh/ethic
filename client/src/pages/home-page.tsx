@@ -14,12 +14,12 @@ import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Post, Topic, User, Event } from "@shared/schema";
-import { 
-  Loader2, Bell, Calendar, FileText, Users, 
-  Sparkles, BookOpen, MessageSquare, Lightbulb, 
+import {
+  Loader2, Bell, Calendar, FileText, Users,
+  Sparkles, BookOpen, MessageSquare, Lightbulb,
   Clock, TrendingUp, Award, Bookmark, PlusCircle,
   Heart, BarChart2, GraduationCap, Briefcase,
-  Search, Trash2
+  Search, Trash2, AlertCircle
 } from "lucide-react";
 import { 
   Card, 
@@ -52,7 +52,7 @@ export default function HomePage() {
     return tab || "recent";
   };
 
-  const { data: posts, isLoading } = useQuery<Post[]>({
+  const { data: posts, isLoading, isError } = useQuery<Post[]>({
     queryKey: ["/api/posts"],
   });
 
@@ -240,6 +240,15 @@ export default function HomePage() {
   ];
 
   if (isLoading) return <PageSkeleton variant="posts" count={4} columns="grid-cols-1" />;
+
+  if (isError) return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <AlertCircle className="h-10 w-10 text-red-400 mb-4" />
+      <h3 className="font-semibold text-gray-900 mb-1">Failed to load</h3>
+      <p className="text-sm text-gray-500 mb-4">Something went wrong. Please try again.</p>
+      <Button variant="outline" onClick={() => window.location.reload()}>Retry</Button>
+    </div>
+  );
 
   return (
     <div className="w-full space-y-6">

@@ -56,11 +56,12 @@ export default function Navbar() {
               {/* Left - Menu Button and Brand */}
               <div className="flex items-center">
                 {/* Menu Button - Only visible on mobile */}
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className="p-2 mr-2 rounded-md text-gray-700 hover:bg-gray-100 lg:hidden"
                   onClick={toggleSidebar}
+                  aria-label="Toggle navigation menu"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -79,10 +80,11 @@ export default function Navbar() {
                   <SearchDropdown />
                 </div>
                 
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+                  aria-label="Search"
                 >
                   <Search className="h-5 w-5" />
                 </Button>

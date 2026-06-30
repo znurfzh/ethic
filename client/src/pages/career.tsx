@@ -4,26 +4,31 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/page-skeleton";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Briefcase, 
-  MapPin, 
-  Search, 
-  Building, 
-  Calendar, 
-  BookOpen, 
-  Award, 
-  Star, 
-  Bookmark, 
-  Users, 
-  TrendingUp, 
-  Backpack, 
-  GraduationCap, 
-  FileText 
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Briefcase,
+  MapPin,
+  Search,
+  Building,
+  Calendar,
+  BookOpen,
+  Award,
+  Star,
+  Bookmark,
+  Users,
+  TrendingUp,
+  Backpack,
+  GraduationCap,
+  FileText,
+  AlertCircle
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -189,18 +194,21 @@ const careerResources = [
 
 export default function CareerPage() {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [jobTypeFilter, setJobTypeFilter] = useState("All");
+  const [applyJobId, setApplyJobId] = useState<number | null>(null);
+  const [applyForm, setApplyForm] = useState({ name: "", email: "", coverNote: "", resumeLink: "" });
   
   // Query for job listings
-  const { data: jobs = jobListings, isLoading: jobsLoading } = useQuery({
+  const { data: jobs = jobListings, isLoading: jobsLoading, isError: jobsError } = useQuery({
     queryKey: ["/api/job-listings"],
     // Mock data for now
     queryFn: () => Promise.resolve(jobListings),
   });
-  
+
   // Query for career resources
-  const { data: resources = careerResources, isLoading: resourcesLoading } = useQuery({
+  const { data: resources = careerResources, isLoading: resourcesLoading, isError: resourcesError } = useQuery({
     queryKey: ["/api/career-resources"],
     // Mock data for now
     queryFn: () => Promise.resolve(careerResources),
@@ -239,6 +247,15 @@ export default function CareerPage() {
   const jobTypes = Array.from(new Set(jobs.map(job => job.type)));
   
   if (jobsLoading || resourcesLoading) return <PageSkeleton variant="cards" count={4} />;
+
+  if (jobsError || resourcesError) return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <AlertCircle className="h-10 w-10 text-red-400 mb-4" />
+      <h3 className="font-semibold text-gray-900 mb-1">Failed to load</h3>
+      <p className="text-sm text-gray-500 mb-4">Something went wrong. Please try again.</p>
+      <Button variant="outline" onClick={() => window.location.reload()}>Retry</Button>
+    </div>
+  );
 
   return (
     <div>
@@ -580,7 +597,7 @@ export default function CareerPage() {
                       <Button variant="outline" size="sm" onClick={() => { }}>
                         <Bookmark className="h-4 w-4 mr-1" /> Save Job
                       </Button>
-                      <Button variant="default" size="sm" onClick={() => { }}>
+                      <Button variant="default" size="sm" onClick={() => setApplyJobId(job.id)}>
                         Apply Now
                       </Button>
                     </CardFooter>
@@ -713,6 +730,71 @@ export default function CareerPage() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Job Application Dialog */}
+      {applyJobId !== null && (() => {
+        const job = jobs.find(j => j.id === applyJobId);
+        if (!job) return null;
+        return (
+          <Dialog open={true} onOpenChange={() => setApplyJobId(null)}>
+            <DialogContent className="sm:max-w-[500px]">
+              <DialogHeader>
+                <DialogTitle>{job.title} — {job.company}</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="apply-name">Name</Label>
+                  <Input
+                    id="apply-name"
+                    placeholder="Your full name"
+                    value={applyForm.name}
+                    onChange={(e) => setApplyForm({ ...applyForm, name: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="apply-email">Email</Label>
+                  <Input
+                    id="apply-email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={applyForm.email}
+                    onChange={(e) => setApplyForm({ ...applyForm, email: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="apply-cover">Cover note <span className="text-gray-400 font-normal">(optional)</span></Label>
+                  <Textarea
+                    id="apply-cover"
+                    placeholder="Why are you a great fit for this role?"
+                    rows={4}
+                    value={applyForm.coverNote}
+                    onChange={(e) => setApplyForm({ ...applyForm, coverNote: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="apply-resume">Resume link <span className="text-gray-400 font-normal">(optional)</span></Label>
+                  <Input
+                    id="apply-resume"
+                    placeholder="https://drive.google.com/..."
+                    value={applyForm.resumeLink}
+                    onChange={(e) => setApplyForm({ ...applyForm, resumeLink: e.target.value })}
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setApplyJobId(null)}>Cancel</Button>
+                <Button onClick={() => {
+                  toast({ title: "Application submitted!", description: "We'll be in touch." });
+                  setApplyJobId(null);
+                  setApplyForm({ name: "", email: "", coverNote: "", resumeLink: "" });
+                }}>
+                  Submit Application
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      })()}
     </div>
   );
 }

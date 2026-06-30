@@ -69,12 +69,12 @@ export default function Sidebar() {
     icon?: React.ReactNode;
   };
   
-  type NavCategory = "Explore" | "ThinkTank" | "Hub" | "Innovation" | "Career";
+  type NavCategory = "Explore" | "Resources" | "Hub" | "Innovation" | "Career";
   
   // Main navigation items based on the 5 category structure
   const mainNavItems: Array<NavItem & { name: NavCategory }> = [
     { name: "Explore", path: "/home", icon: <Home className="h-5 w-5" /> },
-    { name: "ThinkTank", path: "/resources", icon: <BookOpen className="h-5 w-5" /> },
+    { name: "Resources", path: "/resources", icon: <BookOpen className="h-5 w-5" /> },
     { name: "Hub", path: "/hub", icon: <Users className="h-5 w-5" /> },
     { name: "Innovation", path: "/challenges", icon: <Lightbulb className="h-5 w-5" /> },
     { name: "Career", path: "/career", icon: <Briefcase className="h-5 w-5" /> }
@@ -87,7 +87,7 @@ export default function Sidebar() {
       { name: "Recommended for You", path: "/?tab=recommended" },
       { name: "Notifications", path: "/?tab=notifications" }
     ],
-    "ThinkTank": [
+    "Resources": [
       { name: "Repository", path: "/resources" },
       { name: "Pathways", path: "/learning-paths" }
     ],
@@ -162,10 +162,10 @@ export default function Sidebar() {
         <nav className={`${isSidebarCollapsed && !isMobile ? 'px-2' : 'px-4'} space-y-1 pt-5`}>
           <div className="">
             {mainNavItems.map((item) => (
-              <Link key={item.name} href={item.path}>
+              <Link key={item.name} href={item.path} aria-label={item.name}>
                 <div className={`flex items-center ${isSidebarCollapsed && !isMobile ? 'justify-center' : 'px-3'} py-3 text-sm font-medium rounded-md mb-2 cursor-pointer ${
-                  isMainActive(item) 
-                    ? "bg-primary-50 text-primary-700" 
+                  isMainActive(item)
+                    ? "bg-primary-50 text-primary-700"
                     : "text-gray-700 hover:bg-gray-50 hover:text-primary-700"
                 }`}>
                   <div className={`${isMainActive(item) ? "text-primary-500" : "text-gray-400"}`}>

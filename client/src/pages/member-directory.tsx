@@ -32,6 +32,7 @@ import {
   BookOpen,
   GraduationCap,
   Award,
+  AlertCircle,
 } from "lucide-react";
 
 // Sample data since we don't have a real API for this
@@ -130,7 +131,7 @@ export default function MemberDirectoryPage() {
   const [roleFilter, setRoleFilter] = useState("All");
 
   // In a real app, we'd fetch this from the API
-  const { data: members = mockMembers, isLoading } = useQuery<
+  const { data: members = mockMembers, isLoading, isError } = useQuery<
     typeof mockMembers
   >({
     queryKey: ["/api/users"],
@@ -156,6 +157,15 @@ export default function MemberDirectoryPage() {
   });
 
   if (isLoading) return <PageSkeleton variant="members" count={6} />;
+
+  if (isError) return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <AlertCircle className="h-10 w-10 text-red-400 mb-4" />
+      <h3 className="font-semibold text-gray-900 mb-1">Failed to load</h3>
+      <p className="text-sm text-gray-500 mb-4">Something went wrong. Please try again.</p>
+      <Button variant="outline" onClick={() => window.location.reload()}>Retry</Button>
+    </div>
+  );
 
   return (
     <div className="w-full">

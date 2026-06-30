@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 import {
   Card,
   CardContent,
@@ -27,6 +29,7 @@ import {
   Calendar as CalendarIcon,
   Trophy,
   Vote,
+  AlertCircle,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -153,16 +156,18 @@ const spotlightProjects = [
 
 export default function ChallengesPage() {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [filterStatus, setFilterStatus] = useState("all");
+  const [registerChallengeId, setRegisterChallengeId] = useState<number | null>(null);
 
-  const { data: challenges = mockChallenges, isLoading: challengesLoading } =
+  const { data: challenges = mockChallenges, isLoading: challengesLoading, isError: challengesError } =
     useQuery({
       queryKey: ["/api/challenges"],
       // This is mock data, so we're not actually fetching
       queryFn: () => Promise.resolve(mockChallenges),
     });
 
-  const { data: spotlights = spotlightProjects, isLoading: spotlightsLoading } =
+  const { data: spotlights = spotlightProjects, isLoading: spotlightsLoading, isError: spotlightsError } =
     useQuery({
       queryKey: ["/api/spotlight-projects"],
       // This is mock data, so we're not actually fetching
@@ -212,6 +217,15 @@ export default function ChallengesPage() {
   });
 
   if (challengesLoading || spotlightsLoading) return <PageSkeleton variant="cards" count={4} />;
+
+  if (challengesError || spotlightsError) return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <AlertCircle className="h-10 w-10 text-red-400 mb-4" />
+      <h3 className="font-semibold text-gray-900 mb-1">Failed to load</h3>
+      <p className="text-sm text-gray-500 mb-4">Something went wrong. Please try again.</p>
+      <Button variant="outline" onClick={() => window.location.reload()}>Retry</Button>
+    </div>
+  );
 
   return (
     <div>
@@ -547,7 +561,7 @@ export default function ChallengesPage() {
                           </p>
                         </div>
                       ) : challenge.status === "active" ? (
-                        <Button>Join Challenge</Button>
+                        <Button onClick={() => setRegisterChallengeId(challenge.id)}>Join Challenge</Button>
                       ) : (
                         <Button variant="outline">Get Notified</Button>
                       )}
@@ -568,6 +582,35 @@ export default function ChallengesPage() {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Challenge Registration Dialog */}
+        {registerChallengeId !== null && (() => {
+          const challenge = challenges.find(c => c.id === registerChallengeId);
+          if (!challenge) return null;
+          return (
+            <Dialog open={true} onOpenChange={() => setRegisterChallengeId(null)}>
+              <DialogContent className="sm:max-w-[440px]">
+                <DialogHeader>
+                  <DialogTitle>{challenge.title}</DialogTitle>
+                </DialogHeader>
+                <div className="py-4">
+                  <p className="text-sm text-gray-600">
+                    You're about to register for <strong>{challenge.title}</strong>. Confirm your participation below.
+                  </p>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setRegisterChallengeId(null)}>Cancel</Button>
+                  <Button onClick={() => {
+                    toast({ title: `You've been registered for ${challenge.title}!` });
+                    setRegisterChallengeId(null);
+                  }}>
+                    Confirm Registration
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          );
+        })()}
       </div>
     );
 }

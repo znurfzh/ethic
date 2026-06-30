@@ -125,6 +125,33 @@ export default function PostFormModal({ isOpen, onClose }: PostFormModalProps) {
             </div>
           </div>
           
+          {/* Post type selector */}
+          <div className="mb-4">
+            <h4 className="text-sm font-medium text-gray-700 mb-2">Post type</h4>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { type: "article", emoji: "📝", label: "Article", description: "Share in-depth knowledge or research" },
+                { type: "discussion", emoji: "💬", label: "Discussion", description: "Start a conversation or ask a question" },
+                { type: "resource", emoji: "📚", label: "Resource", description: "Share a useful link, tool, or file" },
+              ].map(({ type, emoji, label, description }) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setPostType(type)}
+                  className={`flex flex-col items-start p-3 rounded-lg border-2 text-left transition-colors ${
+                    postType === type
+                      ? "border-primary-500 bg-primary-50"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
+                  }`}
+                >
+                  <span className="text-lg mb-1">{emoji}</span>
+                  <span className="text-sm font-semibold text-gray-900">{label}</span>
+                  <span className="text-xs text-gray-500 mt-0.5">{description}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
