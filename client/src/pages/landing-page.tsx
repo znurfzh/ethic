@@ -12,6 +12,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
 export default function LandingPage() {
+  const [heroVisible, setHeroVisible] = useState(false);
+  useEffect(() => { setHeroVisible(true); }, []);
+
   // Fetch latest posts, resources, and events
   const { data: posts } = useQuery<Post[]>({
     queryKey: ["/api/posts"],
@@ -80,7 +83,13 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div
+            style={{
+              opacity: heroVisible ? 1 : 0,
+              transform: heroVisible ? "translateY(0)" : "translateY(24px)",
+              transition: "opacity 0.6s ease, transform 0.6s ease",
+            }}
+          >
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
               <span className="text-primary-600">Learn, Innovate, and Grow Together</span> with Indonesia's Educational Technology Community
             </h1>
@@ -105,7 +114,7 @@ export default function LandingPage() {
                   <Users className="h-5 w-5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="font-medium">5,000+ Members</p>
+                  <p className="font-medium">800+ Members</p>
                   <p className="text-sm text-gray-600">Active community</p>
                 </div>
               </div>
@@ -114,7 +123,7 @@ export default function LandingPage() {
                   <FileText className="h-5 w-5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="font-medium">1,200+ Resources</p>
+                  <p className="font-medium">350+ Resources</p>
                   <p className="text-sm text-gray-600">Educational materials</p>
                 </div>
               </div>
@@ -123,8 +132,8 @@ export default function LandingPage() {
                   <Sparkles className="h-5 w-5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="font-medium">300+ Projects</p>
-                  <p className="text-sm text-gray-600">Innovation challenges</p>
+                  <p className="font-medium">60+ Challenges</p>
+                  <p className="text-sm text-gray-600">Innovation projects</p>
                 </div>
               </div>
             </div>

@@ -61,6 +61,21 @@ import {
   Award,
 } from "lucide-react";
 
+const topicBadgeMap: Record<string, string> = {
+  blue:   "bg-blue-100 text-blue-700 border-blue-200",
+  purple: "bg-purple-100 text-purple-700 border-purple-200",
+  pink:   "bg-pink-100 text-pink-700 border-pink-200",
+  green:  "bg-green-100 text-green-700 border-green-200",
+  orange: "bg-orange-100 text-orange-700 border-orange-200",
+};
+const topicBadgeListMap: Record<string, string> = {
+  blue:   "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100",
+  purple: "bg-purple-50 text-purple-600 border-purple-200 hover:bg-purple-100",
+  pink:   "bg-pink-50 text-pink-600 border-pink-200 hover:bg-pink-100",
+  green:  "bg-green-50 text-green-600 border-green-200 hover:bg-green-100",
+  orange: "bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100",
+};
+
 // Sample forum data
 const forumTopics = [
   {
@@ -1482,7 +1497,7 @@ export default function HubPage() {
                         <div className="flex flex-wrap gap-2 mt-2">
                           <Badge
                             variant="outline"
-                            className={`bg-${forumTopics.find((t) => t.id === selectedThread.topicId)?.color}-100 text-${forumTopics.find((t) => t.id === selectedThread.topicId)?.color}-700 border-${forumTopics.find((t) => t.id === selectedThread.topicId)?.color}-200`}
+                            className={topicBadgeMap[forumTopics.find((t) => t.id === selectedThread.topicId)?.color ?? ""] ?? "bg-gray-100 text-gray-700 border-gray-200"}
                           >
                             {forumTopics.find((t) => t.id === selectedThread.topicId)?.name}
                           </Badge>
@@ -1609,23 +1624,7 @@ export default function HubPage() {
                                 <div className="flex flex-wrap gap-2 mb-4">
                                   <Badge
                                     variant="outline"
-                                    className={`bg-${
-                                      forumTopics.find(
-                                        (t) => t.id === thread.topicId
-                                      )?.color
-                                    }-50 text-${
-                                      forumTopics.find(
-                                        (t) => t.id === thread.topicId
-                                      )?.color
-                                    }-600 border-${
-                                      forumTopics.find(
-                                        (t) => t.id === thread.topicId
-                                      )?.color
-                                    }-200 hover:bg-${
-                                      forumTopics.find(
-                                        (t) => t.id === thread.topicId
-                                      )?.color
-                                    }-100`}
+                                    className={topicBadgeListMap[forumTopics.find((t) => t.id === thread.topicId)?.color ?? ""] ?? "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"}
                                   >
                                     {
                                       forumTopics.find(
@@ -1723,320 +1722,27 @@ export default function HubPage() {
           </div>
         </TabsContent>
 
-        {/* MENTORSHIP TAB CONTENT */}
+        {/* MENTORSHIP TAB CONTENT — delegates to the dedicated page */}
         <TabsContent value="mentorship" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Left Sidebar - Stats & Quick Actions */}
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Mentorship Statistics</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex flex-col space-y-1">
-                    <span className="text-sm text-gray-500">Active Mentorships</span>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold">17</span>
-                      <Badge variant="outline" className="text-green-600 bg-green-50">
-                        +4 this month
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-1">
-                    <span className="text-sm text-gray-500">Available Mentors</span>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold">24</span>
-                      <Badge variant="outline" className="text-blue-600 bg-blue-50">
-                        8 new openings
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-1">
-                    <span className="text-sm text-gray-500">Students Seeking Mentors</span>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold">43</span>
-                      <Badge variant="outline" className="text-orange-600 bg-orange-50">
-                        12 matches needed
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="pt-2">
-                    <div className="text-sm text-gray-500 mb-2">Top Mentorship Fields</div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Instructional Design</span>
-                        <span className="text-sm font-medium">38%</span>
-                      </div>
-                      <div className="w-full bg-gray-100 rounded-full h-2">
-                        <div className="bg-primary-600 h-2 rounded-full" style={{ width: "38%" }}></div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Learning Analytics</span>
-                        <span className="text-sm font-medium">24%</span>
-                      </div>
-                      <div className="w-full bg-gray-100 rounded-full h-2">
-                        <div className="bg-primary-600 h-2 rounded-full" style={{ width: "24%" }}></div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Educational Technology</span>
-                        <span className="text-sm font-medium">21%</span>
-                      </div>
-                      <div className="w-full bg-gray-100 rounded-full h-2">
-                        <div className="bg-primary-600 h-2 rounded-full" style={{ width: "21%" }}></div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button className="w-full justify-start">
-                    <Users className="mr-2 h-4 w-4" />
-                    Find a Mentor
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <Award className="mr-2 h-4 w-4" />
-                    Become a Mentor
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Schedule a Meeting
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <MessageSquare className="mr-2 h-4 w-4" />
-                    Join Mentor Community
-                  </Button>
-                </CardContent>
-              </Card>
+          <div className="flex flex-col items-center justify-center py-16 text-center space-y-6">
+            <div className="bg-primary-50 rounded-full p-6">
+              <GraduationCap className="h-12 w-12 text-primary-600" />
             </div>
-            
-            {/* Main Content - Current Mentorship or Available Programs */}
-            <div className="md:col-span-2 space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Your Active Mentorship</CardTitle>
-                  <CardDescription>
-                    Instructional Design Career Pathways with Kari Dewanto
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <Avatar className="h-12 w-12">
-                      <AvatarFallback className="bg-primary-100 text-primary-600">
-                        KD
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="font-medium">Kari Dewanto</div>
-                      <div className="text-sm text-gray-500">Alumni • EdTech Solutions Indonesia</div>
-                    </div>
-                    <div className="ml-auto flex space-x-2">
-                      <Button size="sm" variant="outline">
-                        <Mail className="mr-2 h-4 w-4" />
-                        Message
-                      </Button>
-                      <Button size="sm">
-                        <Calendar className="mr-2 h-4 w-4" />
-                        Schedule
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="mb-2 flex justify-between text-sm">
-                      <span>Progress</span>
-                      <span className="font-medium">65%</span>
-                    </div>
-                    <div className="w-full bg-gray-100 rounded-full h-2.5">
-                      <div className="bg-primary-600 h-2.5 rounded-full" style={{ width: "65%" }}></div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div className="rounded-lg bg-gray-50 p-3">
-                      <div className="font-medium">12</div>
-                      <div className="text-xs text-gray-500">Weeks Total</div>
-                    </div>
-                    <div className="rounded-lg bg-gray-50 p-3">
-                      <div className="font-medium">5</div>
-                      <div className="text-xs text-gray-500">Completed Milestones</div>
-                    </div>
-                    <div className="rounded-lg bg-gray-50 p-3">
-                      <div className="font-medium">3</div>
-                      <div className="text-xs text-gray-500">Weeks Remaining</div>
-                    </div>
-                  </div>
-                  
-                  {/* Current Projects - Specifically showing Educational Sociology project */}
-                  <div className="mt-4">
-                    <h4 className="text-sm font-medium mb-3">Current Projects</h4>
-                    <Card className="border border-green-100 bg-green-50">
-                      <CardHeader className="p-4 pb-2">
-                        <CardTitle className="text-base">Educational Sociology Application Project</CardTitle>
-                        <CardDescription>Final project support and feedback for Educational Sociology course</CardDescription>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0">
-                        <div className="text-sm text-gray-600 mb-4">
-                          <p>Working with Kari to apply theoretical concepts from Educational Sociology in developing a community-based learning initiative. Developing practical skills through real-world application of coursework concepts.</p>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <Badge className="bg-green-100 text-green-700 hover:bg-green-200">In Progress</Badge>
-                          <span className="text-xs text-gray-500">Last updated: Today</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Next Milestone</h4>
-                    <Card className="bg-primary-50 border border-primary-100">
-                      <CardContent className="p-3">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <div className="font-medium">Industry Tool Workshop</div>
-                            <div className="text-xs text-gray-500 mt-1">Due: May 1, 2025</div>
-                          </div>
-                          <Badge variant="outline" className="bg-white">In Progress</Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Upcoming Meetings</h4>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 border rounded-md">
-                        <div className="flex items-center space-x-3">
-                          <div className="bg-primary-100 text-primary-700 p-2 rounded-md">
-                            <Calendar className="h-5 w-5" />
-                          </div>
-                          <div>
-                            <div className="font-medium">Industry Tools Workshop</div>
-                            <div className="text-xs text-gray-500">May 1, 2025 • 3:00 PM • 3 hours</div>
-                          </div>
-                        </div>
-                        <Button size="sm" variant="outline">Details</Button>
-                      </div>
-                      <div className="flex justify-between items-center p-3 border rounded-md">
-                        <div className="flex items-center space-x-3">
-                          <div className="bg-primary-100 text-primary-700 p-2 rounded-md">
-                            <Calendar className="h-5 w-5" />
-                          </div>
-                          <div>
-                            <div className="font-medium">Weekly Check-in</div>
-                            <div className="text-xs text-gray-500">May 8, 2025 • 2:00 PM • 30 min</div>
-                          </div>
-                        </div>
-                        <Button size="sm" variant="outline">Details</Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button 
-                    className="w-full"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert("This would display a detailed view of all mentorship information. This feature is not yet implemented.");
-                    }}
-                  >
-                    View Full Mentorship Details
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Other Mentorship Programs</CardTitle>
-                  <CardDescription>Browse other available mentorship opportunities</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {mentorshipPrograms.filter(p => p.id !== 1).map(program => (
-                    <Card key={program.id} className="overflow-hidden">
-                      <CardContent className="p-0">
-                        <div className="p-4">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h4 className="font-medium">{program.title}</h4>
-                              <p className="text-sm text-gray-600 mt-1">{program.description}</p>
-                            </div>
-                            <Badge variant={program.openings > 0 ? "default" : "outline"}>
-                              {program.openings > 0 ? `${program.openings} openings` : "Full"}
-                            </Badge>
-                          </div>
-                          
-                          <div className="flex items-center mt-4 space-x-3">
-                            <Avatar className="h-10 w-10">
-                              <AvatarFallback className="bg-primary-100 text-primary-600">
-                                {program.mentor.name[0]}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <div className="text-sm font-medium">{program.mentor.name}</div>
-                              <div className="text-xs text-gray-500">{program.mentor.role} • {program.mentor.organization}</div>
-                            </div>
-                          </div>
-                          
-                          <div className="grid grid-cols-2 gap-3 mt-4 text-sm">
-                            <div className="flex items-center">
-                              <Clock className="h-4 w-4 text-gray-500 mr-2" />
-                              <span>{program.duration}</span>
-                            </div>
-                            <div className="flex items-center">
-                              <Briefcase className="h-4 w-4 text-gray-500 mr-2" />
-                              <span>{program.commitment}</span>
-                            </div>
-                          </div>
-                          
-                          <div className="flex flex-wrap gap-1 mt-4">
-                            {program.topics.map(topic => (
-                              <Badge key={topic} variant="secondary" className="text-xs">
-                                {topic}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        <div className="border-t p-3 bg-gray-50 flex justify-end">
-                          <Button 
-                            size="sm" 
-                            variant={program.openings > 0 ? "default" : "outline"} 
-                            disabled={program.openings === 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              // Show instead a notification that this would apply for mentorship
-                              alert("Mentorship application would be submitted here. This feature is not yet implemented.");
-                            }}
-                          >
-                            {program.openings > 0 ? "Apply for Mentorship" : "Join Waitlist"}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </CardContent>
-                <CardFooter className="flex justify-center">
-                  <Button 
-                    variant="outline"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert("This would navigate to a page with all mentorship programs. This feature is not yet implemented.");
-                    }}
-                  >
-                    View All Mentorship Programs
-                  </Button>
-                </CardFooter>
-              </Card>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Find Your Mentor</h2>
+              <p className="text-gray-500 max-w-md">
+                Browse mentors, send requests, and manage your mentorship connections — all in the dedicated Mentorship page.
+              </p>
             </div>
+            <Link href="/mentorship">
+              <Button size="lg" className="bg-primary-600 hover:bg-primary-700">
+                <GraduationCap className="h-5 w-5 mr-2" />
+                Go to Mentorship
+              </Button>
+            </Link>
           </div>
         </TabsContent>
-        
+
         {/* MEMBERS TAB CONTENT */}
         <TabsContent value="members" className="mt-6">
           <div className="space-y-6">
@@ -2176,7 +1882,7 @@ export default function HubPage() {
                                     <Button variant="outline">Cancel</Button>
                                     <Button 
                                       onClick={() => {
-                                        setLocation('/hub?tab=mentorship', { replace: true });
+                                        setLocation('/mentorship');
                                       }}
                                     >
                                       Send Message
@@ -2188,7 +1894,7 @@ export default function HubPage() {
                                 size="sm"
                                 onClick={() => {
                                   // This simulates the mentorship request in the scenario
-                                  setLocation('/hub?tab=mentorship', { replace: true });
+                                  setLocation('/mentorship');
                                 }}
                               >
                                 <Users className="h-4 w-4 mr-2" />
